@@ -1,6 +1,10 @@
 Vagrant LAMP
 ============
 
+Forked from vagrant-lamp [https://github.com/mattandersen/vagrant-lamp]
+
+adapted to `ubuntu/xenial64` box. tested with version `20170518.0.0`.
+
 Want to test a new web app but don't want to affect your current Apache / MySQL / PHP system?
 Applications like MAMP are great, but they don't make it easy to maintain multiple, separate
 web roots.
@@ -22,11 +26,14 @@ Usage
 
 ### Startup
 
-1. Download one of the releases available [https://github.com/mattandersen/vagrant-lamp/releases](https://github.com/mattandersen/vagrant-lamp/releases)
+1. Download ZIP [https://github.com/aeroaks/vagrant-lamp/archive/master.zip]
 2. Extract the ZIP file.
 3. From the command-line:
 ```
-$ cd vagrant-lamp-release
+$ mkdir <project-folder> && cd <project-folder>
+```
+copy the contents of the zip to the `<project-folder>`
+```
 $ vagrant up
 ```
 That is pretty simple.
@@ -37,23 +44,19 @@ That is pretty simple.
 The Apache server is available at <http://localhost:8888>
 
 #### MySQL
-Externally the MySQL server is available at port 8889, and when running on the VM it is available as a socket or at port 3306 as usual.
+Externally the MySQL server is available at port 9875, and when running on the VM it is available as a socket or at port 3306 as usual.
 Username: root
 Password: root
 
 Technical Details
 -----------------
-* Ubuntu 14.04 64-bit
+* Ubuntu 16.04.2 64-bit
 * Apache 2.4
-* PHP 5.5
+* PHP 7.0.15
 * MySQL 5.5
 * XDebug
 * PHPUnit 4.8
 * Composer
-
-We are using the base Ubuntu 14.04 box from Vagrant. If you don't already have it downloaded
-the Vagrantfile has been configured to do it for you. This only has to be done once
-for each account on your host computer.
 
 The web root is located in the project directory at `src/` and you can install your files there
 

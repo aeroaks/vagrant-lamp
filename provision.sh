@@ -1,9 +1,10 @@
 #!/bin/bash
 
 apache_config_file="/etc/apache2/envvars"
-apache_vhost_file="/etc/apache2/sites-available/vagrant_vhost.conf"
-php_config_file="/etc/php5/apache2/php.ini"
-xdebug_config_file="/etc/php5/mods-available/xdebug.ini"
+apache_vhost_file="/etc/apache2/sites-available/ubuntu_vhost.conf"
+php_config_file="/etc/php/apache2/php.ini"
+php_config_file="/etc/php/7.0/cli/php.ini"
+xdebug_config_file="/etc/php/7.0/mods-available/xdebug.ini"
 mysql_config_file="/etc/mysql/my.cnf"
 default_apache_index="/var/www/html/index.html"
 project_web_root="src"
@@ -49,8 +50,8 @@ apache_go() {
 	# Install Apache
 	apt-get -y install apache2
 
-	sed -i "s/^\(.*\)www-data/\1vagrant/g" ${apache_config_file}
-	chown -R vagrant:vagrant /var/log/apache2
+	sed -i "s/^\(.*\)www-data/\1ubuntu/g" ${apache_config_file}
+	chown -R ubuntu:ubuntu /var/log/apache2
 
 	if [ ! -f "${apache_vhost_file}" ]; then
 		cat << EOF > ${apache_vhost_file}
@@ -71,7 +72,7 @@ EOF
 	fi
 
 	a2dissite 000-default
-	a2ensite vagrant_vhost
+	a2ensite ubuntu_vhost
 
 	a2enmod rewrite
 
@@ -80,7 +81,7 @@ EOF
 }
 
 php_go() {
-	apt-get -y install php5 php5-curl php5-mysql php5-sqlite php5-xdebug php-pear
+	apt-get -y install php php-curl php-mysql php-sqlite3 php-xdebug php-pear libapache2-mod-php
 
 	sed -i "s/display_startup_errors = Off/display_startup_errors = On/g" ${php_config_file}
 	sed -i "s/display_errors = Off/display_errors = On/g" ${php_config_file}
